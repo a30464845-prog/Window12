@@ -21,7 +21,7 @@ jobs:
           sudo mount --bind /dev /tmp/nr/dev
           sudo mount --bind /proc /tmp/nr/proc
           sudo mount --bind /sys /tmp/nr/sys
-          sudo chroot /tmp/nr /bin/bash -c "sed -i 's/^deb http:\/\/archive.ubuntu.com\/ubuntu jammy main/deb http:\/\/archive.ubuntu.com\/ubuntu jammy main universe multiverse/' /etc/apt/sources.list && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openbox tint2 dillo feh xterm x11-xserver-utils vlc network-manager wpasupplicant linux-firmware linux-image-virtual initramfs-tools && echo window12 > /etc/hostname && printf 'WINDOW 12 v1.0\nMade by ABDUL REHMAN FAROOQI\n' > /etc/issue && apt-get clean && rm -rf /var/lib/apt/lists/*"
+          sudo chroot /tmp/nr /bin/bash -c "echo 'deb http://archive.ubuntu.com/ubuntu jammy main universe multiverse' > /etc/apt/sources.list && echo 'deb http://archive.ubuntu.com/ubuntu jammy-updates main universe multiverse' >> /etc/apt/sources.list && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openbox tint2 dillo feh xterm x11-xserver-utils vlc network-manager wpasupplicant linux-firmware linux-image-generic initramfs-tools && echo window12 > /etc/hostname && printf 'WINDOW 12 v1.0\nMade by ABDUL REHMAN FAROOQI\n' > /etc/issue && apt-get clean && rm -rf /var/lib/apt/lists/*"
           sudo umount /tmp/nr/dev
           sudo umount /tmp/nr/proc
           sudo umount /tmp/nr/sys
