@@ -17,12 +17,11 @@ jobs:
 
       - name: Build 32-bit rootfs
         run: |
-          sudo debootstrap --arch=i386 --variant=minbase --exclude=console-setup jammy /tmp/nr http://archive.ubuntu.com/ubuntu
+          sudo debootstrap --arch=i386 --exclude=console-setup jammy /tmp/nr http://archive.ubuntu.com/ubuntu
           sudo mount --bind /dev /tmp/nr/dev
           sudo mount --bind /proc /tmp/nr/proc
           sudo mount --bind /sys /tmp/nr/sys
-          printf 'deb http://archive.ubuntu.com/ubuntu jammy main universe multiverse\ndeb http://archive.ubuntu.com/ubuntu jammy-updates main universe multiverse\n' | sudo tee /tmp/nr/etc/apt/sources.list > /dev/null
-          sudo chroot /tmp/nr /bin/bash -c "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openbox tint2 dillo feh xterm x11-xserver-utils vlc network-manager wpasupplicant linux-firmware linux-image-generic initramfs-tools && echo window12 > /etc/hostname && printf 'WINDOW 12 v1.0\nMade by ABDUL REHMAN FAROOQI\n' > /etc/issue && apt-get clean && rm -rf /var/lib/apt/lists/*"
+          sudo chroot /tmp/nr /bin/bash -c "sed -i '/^deb /s/ main$/ main universe multiverse/' /etc/apt/sources.list && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openbox tint2 dillo feh xterm x11-xserver-utils vlc network-manager wpasupplicant linux-firmware linux-image-generic initramfs-tools && echo window12 > /etc/hostname && printf 'WINDOW 12 v1.0\nMade by ABDUL REHMAN FAROOQI\n' > /etc/issue && apt-get clean && rm -rf /var/lib/apt/lists/*"
           sudo umount /tmp/nr/dev
           sudo umount /tmp/nr/proc
           sudo umount /tmp/nr/sys
