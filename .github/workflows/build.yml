@@ -17,7 +17,7 @@ jobs:
 
       - name: Build 32-bit rootfs
         run: |
-          sudo debootstrap --arch=i386 jammy /tmp/nr http://archive.ubuntu.com/ubuntu
+          sudo debootstrap --arch=i386 --variant=minbase --exclude=console-setup jammy /tmp/nr http://archive.ubuntu.com/ubuntu
           sudo mount --bind /dev /tmp/nr/dev
           sudo mount --bind /proc /tmp/nr/proc
           sudo mount --bind /sys /tmp/nr/sys
