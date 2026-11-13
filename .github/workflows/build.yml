@@ -17,7 +17,7 @@ jobs:
 
       - name: Build 32-bit rootfs
         run: |
-          sudo debootstrap --arch=i386 --exclude=console-setup,console-setup-linux jammy /tmp/nr http://archive.ubuntu.com/ubuntu
+          sudo debootstrap --arch=i386 --components=main,universe,multiverse --exclude=console-setup,console-setup-linux jammy /tmp/nr http://archive.ubuntu.com/ubuntu
           printf 'deb http://archive.ubuntu.com/ubuntu jammy main universe multiverse\ndeb http://archive.ubuntu.com/ubuntu jammy-updates main universe multiverse\n' | sudo tee /tmp/nr/etc/apt/sources.list > /dev/null
           sudo mount --bind /dev /tmp/nr/dev
           sudo mount --bind /proc /tmp/nr/proc
